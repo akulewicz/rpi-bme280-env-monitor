@@ -1,6 +1,9 @@
 import smbus2
 import bme280
 
+
+logger = logging.getLogger(__name__)
+
 port = 1
 address = 0x76
 bus = smbus2.SMBus(port)
@@ -16,5 +19,6 @@ def read_bme280_data() -> dict:
             "pressure": round(data.pressure, 2)
         }
     except Exception as e:
+        logger.warning(f"Nie udało sie odczytać danych z czujnika BME280: {e}")
         return {}
 
